@@ -1,0 +1,5 @@
+1. Whenever we click on the plus icon the modal opens up we write our note title and the content and click on save and a card will be created on the page that will have our note's title and content.
+
+2. Whenever save changes would be clicked we will extract whatever is written inside the input box and we will save it in local storage and after we have saved it in local storage we will use DOM manipulation to view the card on screen.
+
+3. Whenever we go to our website if it is for the second time or some time after the second time we should be showing the notes that are saved up in our local storage using DOM manipulation.

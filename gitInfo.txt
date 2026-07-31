@@ -1,0 +1,28 @@
+Git - git is a tool that manages different versions of the same project.
+
+So a git folder is a folder that has the git tool enabled in it.
+Git gives us two important features that helps us control the versions of the same project-
+
+1. Checkpoints in our code and this helps us manage code as we can go back to a previous checkpoint or a previous version. These checkpoints are called commits in Git.
+
+2. Branches - Branches are various parts or divisions of the project, sometimes one guy is maintaining a branch but even among those branches, a certain feature of the project can also have a dedicated sub-branch. And at the end of the project all branches have to get merged to make the final app/project, and all the branches are independent of each other and they dont know what is being coded in the other branch.
+
+Github - Its for sharing our code to others.
+
+Why are Git and Github so deeply connected?
+So since Github is an online website and Git is a tool that helps us do teamwork by dividing our project, Github becomes the medium for us to share the code along with its checkpoints and branches to the other user via the Internet, so to do that we simply upload our Git folder to the online Git folder which is also called Git repository, and then the other team members will get that code from the online Git repository.
+Github is capable of storing information about branches and checkpoints.
+
+Commands -
+
+1. git init - Helps us initialize git in a normal folder so that it gets all the features of git.
+
+2. To create a saving point or a checkpoint-
+a. git add . - It adds the files to the saving/staging area where it can then go for getting saved. Dot(.) means we want to save all the files.
+b. git commit -m "Some message for identification of your checkpoint"
+
+3. git remote add origin git_url_to_the_online_github_folder - It makes a permanent connection of our local computer to the online github folder.
+
+4. git push origin name_of_your_branch - It is used to upload our code to the online github folder or repository
+
+5. git checkout -b name_of_new_branch - This creates a new branch.
