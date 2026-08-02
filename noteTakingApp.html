@@ -23,11 +23,17 @@
         #noteDetails{
             height: 500px;
             width: 400px;
+            padding: 10px;
+        }
+        #noteTitle{
+            height: 50px;
+            width: 400px;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
-    <center>
+    <center id="mainContainer">
         <span class="material-symbols-outlined icon-notes" data-bs-toggle="modal" data-bs-target="#exampleModal">
             add_circle
         </span>
@@ -38,28 +44,68 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Note Details</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input id="noteDetails" type="text">
+                    <textarea id="noteTitle"></textarea>
+                    <textarea id="noteDetails"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button onclick="createCard()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                 </div>
                 </div>
             </div>
         </div>
 
-        <div class="card text-bg-primary mb-3" style="width: 18rem;">
+        <!-- Just for reference we are keeping a html of the card  -->
+        <!-- <div class="card text-bg-primary mb-3" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
             </div>
-        </div>
+        </div> -->
         
     </center>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script>
+    function createCard(){
+        var h5 = document.createElement("h5")
+        var description = document.createElement("p")
+        var textStorage = document.createElement("div") 
+        var cardDiv = document.createElement("div") 
+        h5.innerHTML = document.getElementById("noteTitle").value
+        description.innerHTML = document.getElementById("noteDetails").value
+        h5.setAttribute("class","card-title")
+        description.setAttribute("class","card-text")
+        textStorage.appendChild(h5)
+        textStorage.appendChild(description)
+        textStorage.setAttribute("class","card-body")
+        cardDiv.appendChild(textStorage)
+        cardDiv.setAttribute("class","card text-bg-primary mb-3")
+        cardDiv.style.width = "18rem"
+
+        var center = document.getElementById("mainContainer")
+        center.appendChild(cardDiv)
+    }
+
+    // example structure for storing notes in the local storage - 
+    // "card" = [
+    //     {
+    //         "title" : "1st card title",
+    //         "description" : "1st card description"
+    //     },
+    //     {
+    //         "title" : "2nd card title",
+    //         "description" : "2nd card description"
+    //     },
+    //     {
+    //         "title" : "3rd card title",
+    //         "description" : "3rd card description"
+    //     }
+    // ]
+    
+</script>
 </html>
