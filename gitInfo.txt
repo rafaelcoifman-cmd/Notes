@@ -26,3 +26,7 @@ b. git commit -m "Some message for identification of your checkpoint"
 4. git push origin name_of_your_branch - It is used to upload our code to the online github folder or repository
 
 5. git checkout -b name_of_new_branch - This creates a new branch.
+
+6. git status - This will us the status of the branch, like the branch name and if we have any unsaved changes
+
+7. git log - This will give us all the info about the latest commits(checkpoints)
