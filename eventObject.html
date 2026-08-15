@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="rafael(event)" ondblclick="coding(event)">Testing button</button>
+</body>
+<script>
+    //someWork(event) //We cannot write the event object as an input outside any event
+    function someWork(x){
+        console.log(x)
+    }
+    function rafael(a){
+        console.log(a.target)
+    }
+
+    function coding(b){
+        console.log(b.target)
+    }
+
+    // Properties of the event object -
+    // 1. We get a lot of information inside the event object and the most important of them all is the target property that basically gives us the parent element from where the event is called. 
+    // 2. We are only able to access the event object from inside the events and not inside the script tag or any other place. 
+    // 3. The event object will be created in any kind of event, it doesnt necessarily has to be on a mouse click. 
+</script>
+</html>

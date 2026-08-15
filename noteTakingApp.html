@@ -71,6 +71,7 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <script>
+    showCards()
     function createCard(){
         var h5 = document.createElement("h5")
         var description = document.createElement("p")
@@ -86,11 +87,51 @@
         cardDiv.appendChild(textStorage)
         cardDiv.setAttribute("class","card text-bg-primary mb-3")
         cardDiv.style.width = "18rem"
-
+        // localStorage.setItem("card",cardDiv )
         var center = document.getElementById("mainContainer")
         center.appendChild(cardDiv)
+        //  var stringifiedcard = JSON.stringify[cardDiv]
+        // var stringifiedDescrip = JSON.stringify["description",description]
+        var notesArray = []
+        var objs={title:noteTitle.value , description:noteDetails.value}
+        if(localStorage.getItem("Notes")==null){
+            notesArray = []
+        }
+        else{
+        var notesArrayString = localStorage.getItem("Notes")
+         notesArray = JSON.parse(notesArrayString)
+        }
+        notesArray.push(objs)
+        var newNotesArrayString = JSON.stringify(notesArray)
+        localStorage.setItem("Notes", newNotesArrayString)
+        //  localStorage.setItem("description",stringifiedDescrip )
+        
     }
 
+    function showCards(){
+        var gatheredItems= localStorage.getItem("Notes")
+        var itemsArray= JSON.parse(gatheredItems)
+        console.log(itemsArray)
+        for(i=0;i<itemsArray.length;i=i+1){
+         var h5 = document.createElement("h5")
+        var description = document.createElement("p")
+        var textStorage = document.createElement("div") 
+        var cardDiv = document.createElement("div") 
+        h5.innerHTML = itemsArray[i]["title"]
+        description.innerHTML = itemsArray[i]["description"]
+        h5.setAttribute("class","card-title")
+        description.setAttribute("class","card-text")
+        textStorage.appendChild(h5)
+        textStorage.appendChild(description)
+        textStorage.setAttribute("class","card-body")
+        cardDiv.appendChild(textStorage)
+        cardDiv.setAttribute("class","card text-bg-primary mb-3")
+        cardDiv.style.width = "18rem"
+        var center = document.getElementById("mainContainer")
+        center.appendChild(cardDiv)
+    
+    }
+}
     // example structure for storing notes in the local storage - 
     // "card" = [
     //     {
