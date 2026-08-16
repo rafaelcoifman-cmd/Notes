@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // for(i=1;i<=100;i=i+1){
+        //     document.write("rafael")
+        //     document.write("<br>")
+        // }
+        var counter = 0
+        function printingFunction(a, b){
+            if(counter == 5){
+                clearInterval(id)
+            }
+            document.write("Rafael")
+            document.write("<br>")
+            counter = counter + 1
+            
+        }
+
+        printingFunction()
+        var id = setInterval(printingFunction, 5000, 1, 2)
+        console.log(id)
+        console.log("Coding")
+        // clearInterval(id)
+        
+        // Difference between loops and setinterval - 
+        // 1. The loops have a limit but setinterval goes on and on indefinitely
+        // 2. The loop runs without a delay whereas the setinterval does
+        // 3. The setinterval runs in the background because of which the lines below the setinterval also starts running without the setinterval getting completed
+
+        // Note -
+        // We stop setIntervals using clearIntervals and we generally use clearIntervals using a counter so that the setIntervals runs for upto a certain limit. 
+
+        // Callback function - A function that goes inside another function as an input and we are not the ones who would be calling this function but rather the parent function inside which we gave this function as an input is the one who would be calling it, so it is called a callback function. 
+
+        setInterval(function(){
+            console.log("Eating")
+        }, 3000)
+
+        // Anonymous functions - Functions without a name. So only functions that are callback functions(functions that go inside the input of another function) have the ability to be anonymous because they are not going to be called by us in the future.
+        
+        // In this case it was both so we call this function as anonymous callback function 
+        
+    </script>
+</body>
+</html>
