@@ -30,6 +30,16 @@
             width: 400px;
             padding: 10px;
         }
+        #editNoteDetails{
+            height: 500px;
+            width: 400px;
+            padding: 10px;
+        }
+        #editNoteTitle{
+            height: 50px;
+            width: 400px;
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
@@ -59,6 +69,26 @@
             </div>
         </div>
 
+        <!--Edit Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editModalLabel">Note Details</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="editNoteTitle"></textarea>
+                    <textarea id="editNoteDetails"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button onclick="editCard()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Just for reference we are keeping a html of the card  -->
         <!-- <div class="card text-bg-primary mb-3" style="width: 18rem;">
 
@@ -76,6 +106,29 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <script>
     showCards()
+    var cardToBeEdited = null
+    function editCard(){
+        var editTitle = document.getElementById("editNoteTitle").value
+        var editDetails = document.getElementById("editNoteDetails").value
+        var oldTitle = cardToBeEdited.children[0].innerText // we are trying to get the card title using the event.target
+        cardToBeEdited.children[0].innerText = editTitle
+        cardToBeEdited.children[1].innerText = editDetails
+
+        var notesArray = JSON.parse(localStorage.getItem("Notes")) // we are trying to bring out the stored notes array from the local storage so that we can edit it out
+
+        var indexToBeEdited = -1 // we created a variable to store the index of the array that we want to delete from the local storage
+
+        for(i=0;i<notesArray.length;i=i+1){
+            if(notesArray[i].title == oldTitle){
+                indexToBeEdited = i
+            }
+        } // we are trying to find the index that we want to delete inside the local storage array.
+        
+        notesArray[indexToBeEdited].title = editTitle
+        notesArray[indexToBeEdited].description = editDetails
+
+        localStorage.setItem("Notes", JSON.stringify(notesArray)) // we rewrite the local storage with the new notes array that we just edited and put it back inside the local storage.
+    }
     function createCard(){
         var h5 = document.createElement("h5")
         var description = document.createElement("p")
@@ -94,6 +147,11 @@
         editSpan.style.borderRadius = "8px"
         editSpan.innerHTML = "Edit"
         editSpan.style.cursor = "pointer"
+        editSpan.setAttribute("data-bs-toggle", "modal")
+        editSpan.setAttribute("data-bs-target", "#editModal")
+        editSpan.addEventListener("click", function(event){
+            cardToBeEdited = event.target.parentElement
+        })
         deleteSpan.style.backgroundColor = "white"
         deleteSpan.style.color = "#0d6efd"
         deleteSpan.style.padding = "5px"
@@ -101,6 +159,26 @@
         deleteSpan.style.borderRadius = "8px"
         deleteSpan.innerHTML = "Delete"
         deleteSpan.style.cursor = "pointer"
+        deleteSpan.addEventListener("click", function(event){
+
+             event.target.parentElement.parentElement.style.display = "none" //we are just trying to delete the card from the UI
+
+            var elementTitle = event.target.parentElement.children[0].innerText // we are trying to get the card title using the event.target
+
+            var notesArray = JSON.parse(localStorage.getItem("Notes")) // we are trying to bring out the stored notes array from the local storage so that we can edit it out
+
+            var indexToBeDeleted = -1 // we created a variable to store the index of the array that we want to delete from the local storage
+
+            for(i=0;i<notesArray.length;i=i+1){
+               if(notesArray[i].title == elementTitle){
+                    indexToBeDeleted = i
+               }
+            } // we are trying to find the index that we want to delete inside the local storage array.
+
+            notesArray.splice(indexToBeDeleted,1) // we delete the note from the notes array that we got from the local storage
+
+            localStorage.setItem("Notes", JSON.stringify(notesArray)) // we rewrite the local storage with the new notes array that we just edited and put it back inside the local storage.
+        })
         textStorage.appendChild(h5)
         textStorage.appendChild(description)
         textStorage.appendChild(editSpan)
@@ -153,6 +231,11 @@
         editSpan.style.borderRadius = "8px"
         editSpan.innerHTML = "Edit"
         editSpan.style.cursor = "pointer"
+        editSpan.setAttribute("data-bs-toggle", "modal")
+        editSpan.setAttribute("data-bs-target", "#editModal")
+        editSpan.addEventListener("click", function(event){
+            cardToBeEdited = event.target.parentElement
+        })
         deleteSpan.style.backgroundColor = "white"
         deleteSpan.style.color = "#0d6efd"
         deleteSpan.style.padding = "5px"
@@ -160,6 +243,26 @@
         deleteSpan.style.borderRadius = "8px"
         deleteSpan.innerHTML = "Delete"
         deleteSpan.style.cursor = "pointer"
+        deleteSpan.addEventListener("click", function(event){
+
+             event.target.parentElement.parentElement.style.display = "none" //we are just trying to delete the card from the UI
+
+            var elementTitle = event.target.parentElement.children[0].innerText // we are trying to get the card title using the event.target
+
+            var notesArray = JSON.parse(localStorage.getItem("Notes")) // we are trying to bring out the stored notes array from the local storage so that we can edit it out
+
+            var indexToBeDeleted = -1 // we created a variable to store the index of the array that we want to delete from the local storage
+
+            for(i=0;i<notesArray.length;i=i+1){
+               if(notesArray[i].title == elementTitle){
+                    indexToBeDeleted = i
+               }
+            } // we are trying to find the index that we want to delete inside the local storage array.
+
+            notesArray.splice(indexToBeDeleted,1) // we delete the note from the notes array that we got from the local storage
+
+            localStorage.setItem("Notes", JSON.stringify(notesArray)) // we rewrite the local storage with the new notes array that we just edited and put it back inside the local storage.
+        })
         textStorage.appendChild(h5)
         textStorage.appendChild(description)
         textStorage.appendChild(editSpan)
