@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Honk:MORF@15&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Pixelify+Sans:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        .pokemonCard{
+            font-family: 'Comic Relief';
+            display: flex;
+            flex-direction: column;
+            border: 2px solid black;
+            border-radius: 4px;
+            width: 500px;
+            justify-content: center;
+            align-items: center;
+            align-self: flex-start;
+            margin: 20px;
+        }
+        img{   
+            height: 400px;
+            width: 350px;
+        }
+        button {
+        border-radius: 8px;
+        background-color: rgb(0, 98, 255);
+        height: 50px;
+        width: 320px;
+        color: aliceblue;
+        font-size: larger;
+        font-weight: bolder;
+        cursor: pointer;
+        margin: 20px;
+      }
+    </style>
+</head>
+<body>
+    <center><button onclick="showNext()">Show Next Pokemons</button></center>
+    <!-- Requirements - 
+     We make a card for a pokemon and that is going to give us information about the pokemon's name, it's image and also the abilities that the pokemon using in a card -->
+     <script>
+        var lastLink = "https://pokeapi.co/api/v2/pokemon/"
+        async function showNext(){
+            var response = await fetch(lastLink)
+            var jsonResponse = await response.json()
+            var newLink = jsonResponse["next"]
+            if(newLink == null){
+                alert("You have seen all the pokemons")
+            }
+            console.log(jsonResponse)
+            lastLink = newLink
+            document.getElementById("pokemonBox").remove()
+            var response = await fetch(newLink)
+            console.log(newLink)
+            var jsonResponse = await response.json()
+            console.log(jsonResponse)
+            var arrayOfPokemons = jsonResponse["results"]
+            var center = document.createElement("center")
+            center.setAttribute("id","pokemonBox")
+            for(i=0;i<arrayOfPokemons.length;i++){
+                var nameOfPokemon = arrayOfPokemons[i]["name"]                
+                var div = document.createElement("div")
+                div.style.backgroundColor = "aliceblue"
+                div.setAttribute("class", "pokemonCard")
+                var br1 = document.createElement("br")
+                var br2 = document.createElement("br")
+                var span = document.createElement("span")
+                span.style.fontSize = "30px"
+                span.style.margin = "10px"
+                span.style.padding = "10px"
+                span.style.borderRadius = "5px"
+                span.innerHTML = nameOfPokemon.toUpperCase()
+                span.style.backgroundColor = "aqua"
+                var img = document.createElement("img")
+                var pokemonDetails = arrayOfPokemons[i].url
+                var pokeResponse = await fetch(pokemonDetails)
+                var jsonPokeResponse = await pokeResponse.json()
+                var imageUrl = jsonPokeResponse["sprites"]["other"]["dream_world"]["front_default"]
+                var ultimateAbilities = ""
+                for (j=0;j<jsonPokeResponse["abilities"].length;j=j+1){
+                    var abilities = jsonPokeResponse["abilities"][j]["ability"]["name"]
+                        if(ultimateAbilities == ""){
+                            ultimateAbilities = abilities
+                        }
+                        else{
+                            ultimateAbilities = abilities + "," + ultimateAbilities
+                        }
+                }
+                img.setAttribute("src", imageUrl)
+                var para = document.createElement("para")
+                para.innerHTML = ultimateAbilities
+                para.style.backgroundColor = "red"
+                para.style.color = "white"
+                para.style.fontSize = "20px"
+                para.style.margin = "10px"
+                para.style.padding = "10px"
+                para.style.borderRadius = "5px"
+                div.appendChild(span)
+                div.appendChild(br1)
+                div.appendChild(img)
+                div.appendChild(br2)
+                div.appendChild(para)
+                center.appendChild(div)                
+            }
+            document.body.appendChild(center)
+        }
+        async function makeCard(){
+            var response = await fetch("https://pokeapi.co/api/v2/pokemon/")
+            var jsonResponse = await response.json()
+            var arrayOfPokemons = jsonResponse["results"]
+            var center = document.createElement("center")
+            center.setAttribute("id","pokemonBox")
+            for(i=0;i<arrayOfPokemons.length;i++){
+                var nameOfPokemon = arrayOfPokemons[i]["name"]                
+                var div = document.createElement("div")
+                div.style.backgroundColor = "aliceblue"
+                div.setAttribute("class", "pokemonCard")
+                var br1 = document.createElement("br")
+                var br2 = document.createElement("br")
+                var span = document.createElement("span")
+                span.style.fontSize = "30px"
+                span.style.margin = "10px"
+                span.style.padding = "10px"
+                span.style.borderRadius = "5px"
+                span.innerHTML = nameOfPokemon.toUpperCase()
+                span.style.backgroundColor = "aqua"
+                var img = document.createElement("img")
+                var pokemonDetails = arrayOfPokemons[i].url
+                var pokeResponse = await fetch(pokemonDetails)
+                var jsonPokeResponse = await pokeResponse.json()
+                var imageUrl = jsonPokeResponse["sprites"]["other"]["dream_world"]["front_default"]
+                var ultimateAbilities = ""
+                for (j=0;j<jsonPokeResponse["abilities"].length;j=j+1){
+                    var abilities = jsonPokeResponse["abilities"][j]["ability"]["name"]
+                        if(ultimateAbilities == ""){
+                            ultimateAbilities = abilities
+                        }
+                        else{
+                            ultimateAbilities = abilities + "," + ultimateAbilities
+                        }
+                }
+                img.setAttribute("src", imageUrl)
+                var para = document.createElement("para")
+                para.innerHTML = ultimateAbilities
+                para.style.backgroundColor = "red"
+                para.style.color = "white"
+                para.style.fontSize = "20px"
+                para.style.margin = "10px"
+                para.style.padding = "10px"
+                para.style.borderRadius = "5px"
+                div.appendChild(span)
+                div.appendChild(br1)
+                div.appendChild(img)
+                div.appendChild(br2)
+                div.appendChild(para)
+                center.appendChild(div)                
+            }
+            document.body.appendChild(center)
+        }
+        makeCard()
+     </script>
+</body>
+</html>
